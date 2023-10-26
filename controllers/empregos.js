@@ -33,13 +33,34 @@ const mostrarUmEmprego = async (req, res) => {
     where: { id: empregoId, criadoPor: usuarioId },
   });
   if (!emprego) {
-    console.log("Sem emprego!")
+    console.log("SEM EMPREGO COM ESSE ID!");
   }
   res.status(200).json(emprego);
 };
 
 const editarEmprego = async (req, res) => {
-  res.send("editar um emprego");
+  const {
+    usuario: { usuarioId },
+    params: { id: empregoId },
+    body: { empresa, cargo },
+  } = req;
+
+  const emprego = await prisma.emprego.update({
+    where: {
+      id: empregoId,
+      criadoPor: usuarioId,
+    },
+    data: {
+      empresa: empresa,
+      cargo: cargo,
+    },
+  });
+
+  if (!emprego) {
+    console.log("SEM EMPREGO COM ESSE ID!");
+  }
+
+  res.status(200).json(emprego);
 };
 
 const deletarEmprego = async (req, res) => {
@@ -55,7 +76,7 @@ const deletarEmprego = async (req, res) => {
     },
   });
   if (!emprego) {
-    console.log("SEM EMPREGO COM ESSE ID!")
+    console.log("SEM EMPREGO COM ESSE ID!");
   }
   res.status(200).json();
 };
