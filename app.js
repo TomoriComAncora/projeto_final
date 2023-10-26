@@ -5,6 +5,7 @@ const app = express();
 const autenticarRouter = require("./routes/autenticar");
 const empregosRouter = require("./routes/empregos");
 
+app.use(express.json());
 // rotas
 app.use("/api/v1/autenticar", autenticarRouter);
 
