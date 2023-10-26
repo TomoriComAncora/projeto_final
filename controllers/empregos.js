@@ -1,32 +1,33 @@
-const mostrarTodosEmpregos =
-  ("/api/v1/empregos",
-  (req, res) => {
-    res.send("mostrar todos os empregos");
-  });
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
 
-const criarEmprego =
-  ("/api/v1/empregos",
-  (req, res) => {
-    res.send("criar emprego");
-  });
+const mostrarTodosEmpregos = async (req, res) => {};
 
-const mostrarUmEmprego =
-  ("/api/v1/empregos/:id",
-  (req, res) => {
-    res.send("buscar um emprego");
+const criarEmprego = async (req, res) => {
+  const { empresa, cargo, status } = req.body;
+  req.body.usuarioId = req.usuario.usuarioId;
+  const emprego = await prisma.emprego.create({
+    data: {
+      empresa: empresa,
+      cargo: cargo,
+      status: status,
+      criadoPor: req.body.usuarioId,
+    },
   });
+  res.status(201).json(emprego);
+};
 
-const editarEmprego =
-  ("/api/v1/empregos/:id",
-  (req, res) => {
-    res.send("editar um emprego");
-  });
+const mostrarUmEmprego = async (req, res) => {
+  res.send("buscar um emprego");
+};
 
-const deletarEmprego =
-  ("/api/v1/empregos/:id",
-  (req, res) => {
-    res.send("deletar um emprego");
-  });
+const editarEmprego = async (req, res) => {
+  res.send("editar um emprego");
+};
+
+const deletarEmprego = async (req, res) => {
+  res.send("deletar um emprego");
+};
 
 module.exports = {
   mostrarTodosEmpregos,
