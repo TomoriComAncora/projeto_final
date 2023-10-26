@@ -1,7 +1,14 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-const mostrarTodosEmpregos = async (req, res) => {};
+const mostrarTodosEmpregos = async (req, res) => {
+  const empregos = await prisma.emprego.findMany({
+    where: {
+      criadoPor: req.usuario.usuarioId,
+    },
+  });
+  res.status(200).json({ empregos, total: empregos.length });
+};
 
 const criarEmprego = async (req, res) => {
   const { empresa, cargo, status } = req.body;
@@ -18,7 +25,17 @@ const criarEmprego = async (req, res) => {
 };
 
 const mostrarUmEmprego = async (req, res) => {
-  res.send("buscar um emprego");
+  const {
+    usuario: { usuarioId },
+    params: { id: empregoId },
+  } = req;
+  const emprego = await prisma.emprego.findUnique({
+    where: { id: empregoId, criadoPor: usuarioId },
+  });
+  if (!emprego) {
+    console.log("Sem emprego!")
+  }
+  res.status(200).json(emprego);
 };
 
 const editarEmprego = async (req, res) => {
