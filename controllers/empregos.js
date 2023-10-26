@@ -43,7 +43,21 @@ const editarEmprego = async (req, res) => {
 };
 
 const deletarEmprego = async (req, res) => {
-  res.send("deletar um emprego");
+  const {
+    usuario: { usuarioId },
+    params: { id: empregoId },
+  } = req;
+
+  const emprego = await prisma.emprego.delete({
+    where: {
+      id: empregoId,
+      criadoPor: usuarioId,
+    },
+  });
+  if (!emprego) {
+    console.log("SEM EMPREGO COM ESSE ID!")
+  }
+  res.status(200).json();
 };
 
 module.exports = {
