@@ -38,7 +38,7 @@ const logar = async (req, res) => {
     return res.send("Não tem vacilão");
   }
   const token = jwt.sign(
-    { usuario: usuario.id, nome: usuario.nome },
+    { usuarioId: usuario.id, nome: usuario.nome },
     process.env.JWT_SECRET,
     { expiresIn: process.env.JWT_LIFETIME }
   );

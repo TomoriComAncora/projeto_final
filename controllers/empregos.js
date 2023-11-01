@@ -42,7 +42,7 @@ const editarEmprego = async (req, res) => {
   const {
     usuario: { usuarioId },
     params: { id: empregoId },
-    body: { empresa, cargo },
+    body: { empresa, cargo, status },
   } = req;
 
   const emprego = await prisma.emprego.update({
@@ -53,6 +53,7 @@ const editarEmprego = async (req, res) => {
     data: {
       empresa: empresa,
       cargo: cargo,
+      status: status
     },
   });
 
