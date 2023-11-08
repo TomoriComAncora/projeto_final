@@ -1,7 +1,7 @@
-const { PrismaClient } = require("@prisma/client");
+import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
-const mostrarTodosEmpregos = async (req, res) => {
+export const mostrarTodosEmpregos = async (req: any, res: any) => {
   const empregos = await prisma.emprego.findMany({
     where: {
       criadoPor: req.usuario.usuarioId,
@@ -10,7 +10,7 @@ const mostrarTodosEmpregos = async (req, res) => {
   res.status(200).json({ empregos, total: empregos.length });
 };
 
-const criarEmprego = async (req, res) => {
+export const criarEmprego = async (req: any, res: any) => {
   const { empresa, cargo, status } = req.body;
   req.body.usuarioId = req.usuario.usuarioId;
   const emprego = await prisma.emprego.create({
@@ -24,7 +24,7 @@ const criarEmprego = async (req, res) => {
   res.status(201).json(emprego);
 };
 
-const mostrarUmEmprego = async (req, res) => {
+export const mostrarUmEmprego = async (req: any, res: any) => {
   const {
     usuario: { usuarioId },
     params: { id: empregoId },
@@ -33,12 +33,12 @@ const mostrarUmEmprego = async (req, res) => {
     where: { id: empregoId, criadoPor: usuarioId },
   });
   if (!emprego) {
-    console.log("SEM EMPREGO COM ESSE ID!");
+    console.log("Nenhum emprego com esse id");
   }
   res.status(200).json(emprego);
 };
 
-const editarEmprego = async (req, res) => {
+export const editarEmprego = async (req: any, res: any) => {
   const {
     usuario: { usuarioId },
     params: { id: empregoId },
@@ -53,18 +53,18 @@ const editarEmprego = async (req, res) => {
     data: {
       empresa: empresa,
       cargo: cargo,
-      status: status
+      status: status,
     },
   });
 
   if (!emprego) {
-    console.log("SEM EMPREGO COM ESSE ID!");
+    console.log("Nenhum emprego com esse id");
   }
 
   res.status(200).json(emprego);
 };
 
-const deletarEmprego = async (req, res) => {
+export const deletarEmprego = async (req: any, res: any) => {
   const {
     usuario: { usuarioId },
     params: { id: empregoId },
@@ -77,15 +77,7 @@ const deletarEmprego = async (req, res) => {
     },
   });
   if (!emprego) {
-    console.log("SEM EMPREGO COM ESSE ID!");
+    console.log("Nenhum emprego com esse id");
   }
   res.status(200).json();
-};
-
-module.exports = {
-  mostrarTodosEmpregos,
-  criarEmprego,
-  mostrarUmEmprego,
-  editarEmprego,
-  deletarEmprego,
 };

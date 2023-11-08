@@ -35,3 +35,12 @@
 Semana 4: Desenvolvimento do Backend - Parte 1
 Semana 5: Desenvolvimento do Backend - Parte 2 e Validação com Yup
 Semana 6: Testes, Refatoração e Apresentação
+
+Passos iniciais:
+1. npm install
+2. Configurar arquivo .env com as variáveis: DATABASE_URL e JWT_SECRET (DATABASE_URL vai conter os dados do mongoDB e JWT_SECRET uma chave aleatória de 256bit)
+3. npx prisma db push
+4. npm start
+5. Utilizar o Postman, Insomnia ou Thunder Client para testar as rotas.
+  
+Passos para teste de rota:

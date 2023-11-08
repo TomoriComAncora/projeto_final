@@ -1,15 +1,15 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
 
-const {
+import {
   mostrarTodosEmpregos,
   criarEmprego,
   mostrarUmEmprego,
   editarEmprego,
   deletarEmprego,
-} = require("../controllers/empregos");
+} from "../controllers/empregos";
 
-const {validar, empregoSchema} = require("../middleware/validar");
+import { validar, empregoSchema } from "../middleware/validar";
 
 router.get("/", mostrarTodosEmpregos);
 router.post("/", validar(empregoSchema), criarEmprego);
@@ -17,4 +17,4 @@ router.get("/:id", mostrarUmEmprego);
 router.patch("/:id", validar(empregoSchema), editarEmprego);
 router.delete("/:id", deletarEmprego);
 
-module.exports = router;
+export default router;
