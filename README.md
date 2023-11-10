@@ -44,3 +44,31 @@ Passos iniciais:
 5. Utilizar o Postman, Insomnia ou Thunder Client para testar as rotas.
   
 Passos para teste de rota:
+**REGISTRAT**
+
+Passe o nome, o email e a senha
+
+**LOGAR**
+
+Passar o nome que foi registrado e a senha
+
+**CRIAR EMPREGOS**
+
+Colocar em authorization o token gerado do login em bearer token e passar a empresa e o cargo
+
+**MOSTRAT TODOS OS EMPREGOS**
+
+Colocar em authorization o token gerado do login em bearer token usar a mesma rota de criar emprego mas com o método post
+
+**MOSTRAR UM EMPREGO POR ID**
+
+Colocar em authorization o token gerado do login em bearer token usar a mesma rota de criar emprego mas com o método post passando o ID do emprego que deseja ver
+
+**EDITAR UM EMPREGO POR ID**
+
+Colocar em authorization o token gerado do login em bearer token usar a mesma rota de criar emprego mas com o método patch passando o ID do emprego que deseja editar, passe os 
+campos que desejar editar, como: empresa, cargo ou status.
+
+**DELETAR EMPRESA POR ID**
+
+Colocar em authorization o token gerado do login em bearer token usar a mesma rota de criar emprego mas com o método delete passando o ID do emprego que deseja deletar
