@@ -32,9 +32,9 @@
 ***Semana 1: Definição e Planejamento***
 ***Semana 2: Elaboração e Detalhamento***
 ***Semana 3: Design do Banco de Dados e Modelo de Dados***
-Semana 4: Desenvolvimento do Backend - Parte 1
-Semana 5: Desenvolvimento do Backend - Parte 2 e Validação com Yup
-Semana 6: Testes, Refatoração e Apresentação
+***Semana 4: Desenvolvimento do Backend - Parte 1***
+***Semana 5: Desenvolvimento do Backend - Parte 2 e Validação com Yup***
+***Semana 6: Testes, Refatoração e Apresentação***
 
 Passos iniciais:
 1. npm install
