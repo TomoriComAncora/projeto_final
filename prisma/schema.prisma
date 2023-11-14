@@ -10,8 +10,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum TipoUsuario {
+  empresa
+  estudante
+}
+
 model Usuario {
   id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  tipoUsuario TipoUsuario @default(estudante)
   nome     String
   email    String    @unique
   senha    String
