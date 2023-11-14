@@ -10,6 +10,7 @@ export const usuarioSchema = yup.object({
       "Insira um email válido!"
     ),
   senha: yup.string().required("Senha é obrigatório!"),
+  tipoUsuario: yup.string().required("O tipo de usuário é obrigatório!")
 });
 
 export const usuarioSchemaLogin = yup.object({

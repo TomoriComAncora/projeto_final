@@ -11,6 +11,10 @@ export const mostrarTodosEmpregos = async (req: any, res: any) => {
 };
 
 export const criarEmprego = async (req: any, res: any) => {
+  if(req.usuario.tipoUsuario !== "empresa"){
+    console.log("Sem permissão para essa operação!");
+    return res.status(401).json("Sem permissão para essa operação!")
+  }
   const { empresa, cargo, status } = req.body;
   req.body.usuarioId = req.usuario.usuarioId;
   const emprego = await prisma.emprego.create({

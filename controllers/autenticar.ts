@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 export const registrar = async (req: any, res: any) => {
-  const { nome, email, senha } = req.body;
+  const { nome, email, senha, tipoUsuario } = req.body;
 
   // Criptografando senha do usuário
   const salt = await bcrypt.genSalt(10);
@@ -16,12 +16,13 @@ export const registrar = async (req: any, res: any) => {
       nome: nome,
       email: email,
       senha: senhaCriptografada,
+      tipoUsuario: tipoUsuario
     },
   });
 
   // Criando token
   const token = jwt.sign(
-    { usuario: usuario.id, nome: usuario.nome },
+    { usuario: usuario.id, nome: usuario.nome, tipoUsuario: usuario.tipoUsuario },
     String(process.env.JWT_SECRET),
     { expiresIn: 60 * 60 }
   );
@@ -43,9 +44,9 @@ export const logar = async (req: any, res: any) => {
     return res.send("Não tem vacilão");
   }
   const token = jwt.sign(
-    { usuarioId: usuario!.id, nome: usuario!.nome },
+    { usuarioId: usuario?.id, nome: usuario?.nome, tipoUsuario: usuario?.tipoUsuario },
     String(process.env.JWT_SECRET),
     { expiresIn: 60 * 60 }
   );
-  res.status(201).json({ usuario: { nome: usuario!.nome }, token });
+  res.status(201).json({ usuario: { nome: usuario?.nome, TipoUsuario: usuario?.tipoUsuario }, token });
 };
