@@ -22,12 +22,12 @@ export const registrar = async (req: any, res: any) => {
 
   // Criando token
   const token = jwt.sign(
-    { usuario: usuario.id, nome: usuario.nome, tipoUsuario: usuario.tipoUsuario },
+    { usuario: usuario.id, nome: usuario.nome, email: usuario.email, tipoUsuario: usuario.tipoUsuario },
     String(process.env.JWT_SECRET),
     { expiresIn: 60 * 60 }
   );
 
-  res.status(201).json({ usuario: { nome: usuario.nome }, token });
+  res.status(201).json({ usuario: { nome: usuario.nome, tipoUsuario: usuario?.tipoUsuario }, token });
 };
 
 export const logar = async (req: any, res: any) => {
@@ -43,8 +43,10 @@ export const logar = async (req: any, res: any) => {
   if (!compararSenha) {
     return res.send("Não tem vacilão");
   }
+
+  // Criando token
   const token = jwt.sign(
-    { usuarioId: usuario?.id, nome: usuario?.nome, tipoUsuario: usuario?.tipoUsuario },
+    { usuarioId: usuario?.id, nome: usuario?.nome, email: usuario?.email, tipoUsuario: usuario?.tipoUsuario },
     String(process.env.JWT_SECRET),
     { expiresIn: 60 * 60 }
   );

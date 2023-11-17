@@ -9,7 +9,7 @@ const autenticar = async (req: any, res: any, next: any) => {
   try {
     const payload = jwt.verify(token, String(process.env.JWT_SECRET));
 
-    req.usuario = { usuarioId: payload.usuarioId, nome: payload.nome, tipoUsuario: payload.tipoUsuario };
+    req.usuario = { usuarioId: payload.usuarioId, usuarioEmail: payload.email, nome: payload.nome, tipoUsuario: payload.tipoUsuario };
 
     next();
   } catch (error) {

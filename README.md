@@ -36,39 +36,80 @@
 ***Semana 5: Desenvolvimento do Backend - Parte 2 e Validação com Yup***
 ***Semana 6: Testes, Refatoração e Apresentação***
 
-Passos iniciais:
+## PASSOS INICIAIS: ##
 1. npm install
 2. Configurar arquivo .env com as variáveis: DATABASE_URL e JWT_SECRET (DATABASE_URL vai conter os dados do mongoDB e JWT_SECRET uma chave aleatória de 256bit)
 3. npx prisma db push
 4. npm start
 5. Utilizar o Postman, Insomnia ou Thunder Client para testar as rotas.
   
-Passos para teste de rota:
-**REGISTRAT**
+##### PASSOS PARA TESTAR AS ROTAS #####
 
-Passe o nome, o email e a senha
+**REGISTRAR**
+
+Rota: localhost:<porta>/api/v1/autenticar/registrar
+Método: POST
+Insira o nome, o email, a senha e o tipo de usuário(empresa ou estudante) no body.
 
 **LOGAR**
 
-Passar o nome que foi registrado e a senha
+Rota: localhost:<porta>/api/v1/autenticar/logar
+Método: POST
+Logar com o email e a senha registrada. Copiar o token que foi gerado.
+
+### ROTAS DAS EMPRESAS ###
+
+Antes de testar as rotas das empresas:
+Ao utilizar uma das API para teste de rotas, vá na aba "Headers" e adicione a chave "Authorization" com o valor: "Bearer <Token>". No lugar de <Token> coloque o token que foi gerado depois de ter realizado a ação de login.
 
 **CRIAR EMPREGOS**
 
-Colocar em authorization o token gerado do login em bearer token e passar a empresa e o cargo
+Rota: localhost:<porta>/api/v1/empresa/empregos
+Método: POST
+Insira a empresa, o cargo e status(opcional) no body.
 
-**MOSTRAT TODOS OS EMPREGOS**
+**MOSTRAR TODOS OS SEUS EMPREGOS CRIADOS**
 
-Colocar em authorization o token gerado do login em bearer token usar a mesma rota de criar emprego mas com o método post
+Rota: localhost:<porta>/api/v1/empresa/empregos
+Método: GET
 
 **MOSTRAR UM EMPREGO POR ID**
 
-Colocar em authorization o token gerado do login em bearer token usar a mesma rota de criar emprego mas com o método post passando o ID do emprego que deseja ver
+Rota: localhost:<porta>/api/v1/empresa/empregos/<id>
+Método: GET
 
 **EDITAR UM EMPREGO POR ID**
 
-Colocar em authorization o token gerado do login em bearer token usar a mesma rota de criar emprego mas com o método patch passando o ID do emprego que deseja editar, passe os 
-campos que desejar editar, como: empresa, cargo ou status.
+Rota: localhost:<porta>/api/v1/empresa/empregos/<id>
+Método: PATCH
+Passe empresa, cargo e estatus(opcional) no body.
 
 **DELETAR EMPRESA POR ID**
 
-Colocar em authorization o token gerado do login em bearer token usar a mesma rota de criar emprego mas com o método delete passando o ID do emprego que deseja deletar
+Rota: localhost:<porta>/api/v1/empresa/empregos/<id>
+Método: DELETE
+
+### ROTAS DOS ESTUDANTES ###
+
+Antes de testar as rotas dos estudantes:
+Ao utilizar uma das API para teste de rotas, vá na aba "Headers" e adicione a chave "Authorization" com o valor: "Bearer <Token>". No lugar de <Token> coloque o token que foi gerado depois de ter realizado a ação de login.
+
+**MOSTRAR TODOS OS EMPREGOS CRIADOS**
+
+Rota: localhost:<porta>/api/v1/estudante/empregos
+Método: GET
+
+**MOSTRAR UM EMPREGO POR ID**
+
+Rota: localhost:<porta>/api/v1/estudante/empregos/<id>
+Método: GET
+
+**CANDIDATAR-SE A UMA VAGA POR ID**
+
+Rota: localhost:<porta>/api/v1/estudante/empregos/candidatar/<id>
+Método: PATCH
+
+**CANCELAR CANDIDATURA A UMA VAGA POR ID**
+
+Rota: localhost:<porta>/api/v1/estudante/empregos/cancelar/<id>
+Método: PATCH

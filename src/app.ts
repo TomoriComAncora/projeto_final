@@ -4,14 +4,15 @@ const app = express();
 import autenticarUsuario from "../middleware/autenticar";
 
 import autenticarRouter from "../routes/autenticar";
-import empregosRouter from "../routes/empregos";
-
+import empregosRouter from "../routes/empregosEmpresa";
+import empregosEstudanteRouter from "../routes/empregosEstudante";
 
 app.use(express.json());
 
 // Rotas
 app.use("/api/v1/autenticar", autenticarRouter);
-app.use("/api/v1/empregos", autenticarUsuario, empregosRouter);
+app.use("/api/v1/empresa/empregos", autenticarUsuario, empregosRouter);
+app.use("/api/v1/estudante/empregos", autenticarUsuario, empregosEstudanteRouter);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
