@@ -25,16 +25,16 @@ model Usuario {
 }
 
 enum Status {
-  pendente
+  disponivel
   entrevista
-  recusado
+  encerrado
 }
 
 model Emprego {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   empresa      String
   cargo        String
-  status       Status   @default(pendente)
+  status       Status   @default(disponivel)
   usuario      Usuario  @relation(fields: [criadoPor], references: [id])
   criadoPor    String   @db.ObjectId
   candidatos String[] 
