@@ -37,6 +37,7 @@ model Emprego {
   status       Status   @default(pendente)
   usuario      Usuario  @relation(fields: [criadoPor], references: [id])
   criadoPor    String   @db.ObjectId
+  candidatos String[] 
   criadoEm     DateTime @default(now())
   atualizadoEm DateTime @updatedAt
 }
