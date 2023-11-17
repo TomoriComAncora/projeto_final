@@ -101,7 +101,7 @@ Método: GET
 
 **MOSTRAR UM EMPREGO POR ID**
 
-Rota: localhost:<porta>/api/v1/estudante/empregos/<id>
+Rota: localhost:<porta>/api/v1/estudante/empregos/mostrar/<id>
 Método: GET
 
 **CANDIDATAR-SE A UMA VAGA POR ID**
