@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Prisma } from "@prisma/client";
 const prisma = new PrismaClient();
 
 import jwt from "jsonwebtoken";
@@ -11,23 +11,43 @@ export const registrar = async (req: any, res: any) => {
   const salt = await bcrypt.genSalt(10);
   const senhaCriptografada = await bcrypt.hash(senha, salt);
 
-  const usuario = await prisma.usuario.create({
-    data: {
-      nome: nome,
-      email: email,
-      senha: senhaCriptografada,
-      tipoUsuario: tipoUsuario
-    },
-  });
+  try {
+    const usuario = await prisma.usuario.create({
+      data: {
+        nome: nome,
+        email: email,
+        senha: senhaCriptografada,
+        tipoUsuario: tipoUsuario,
+      },
+    });
 
-  // Criando token
-  const token = jwt.sign(
-    { usuario: usuario.id, nome: usuario.nome, email: usuario.email, tipoUsuario: usuario.tipoUsuario },
-    String(process.env.JWT_SECRET),
-    { expiresIn: 60 * 60 }
-  );
+    // Criando token
+    const token = jwt.sign(
+      {
+        usuario: usuario.id,
+        nome: usuario.nome,
+        email: usuario.email,
+        tipoUsuario: usuario.tipoUsuario,
+      },
+      String(process.env.JWT_SECRET),
+      { expiresIn: 60 * 60 }
+    );
 
-  res.status(201).json({ usuario: { nome: usuario.nome, tipoUsuario: usuario?.tipoUsuario }, token });
+    res.status(201).json({
+      usuario: { nome: usuario.nome, tipoUsuario: usuario?.tipoUsuario },
+      token,
+    });
+  } catch (error: any) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === "P2002") {
+        res
+          .status(409)
+          .json(
+            "Email já cadastrado, não é possível criar outro usuário com o mesmo email!"
+          );
+      }
+    }
+  }
 };
 
 export const logar = async (req: any, res: any) => {
@@ -41,14 +61,22 @@ export const logar = async (req: any, res: any) => {
   // comparando as senhas
   const compararSenha = await bcrypt.compare(senha, usuario!.senha);
   if (!compararSenha) {
-    return res.send("Não tem vacilão");
+    return res.status(401).json("Credencias inválidas!");
   }
 
   // Criando token
   const token = jwt.sign(
-    { usuarioId: usuario?.id, nome: usuario?.nome, email: usuario?.email, tipoUsuario: usuario?.tipoUsuario },
+    {
+      usuarioId: usuario?.id,
+      nome: usuario?.nome,
+      email: usuario?.email,
+      tipoUsuario: usuario?.tipoUsuario,
+    },
     String(process.env.JWT_SECRET),
     { expiresIn: 60 * 60 }
   );
-  res.status(201).json({ usuario: { nome: usuario?.nome, TipoUsuario: usuario?.tipoUsuario }, token });
+  res.status(201).json({
+    usuario: { nome: usuario?.nome, TipoUsuario: usuario?.tipoUsuario },
+    token,
+  });
 };
