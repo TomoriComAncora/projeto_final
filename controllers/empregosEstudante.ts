@@ -54,7 +54,6 @@ export const candidatarEmprego = async (req: any, res: any) => {
       id: empregoId,
     },
     data: {
-      status: "entrevista",
       candidatos: candidatosTemp,
     },
   });
@@ -63,7 +62,6 @@ export const candidatarEmprego = async (req: any, res: any) => {
     .status(200)
     .json({ mensagem: "Você se candidatou com sucesso à esta vaga!", emprego });
 };
-
 
 export const cancelarCandidatura = async (req: any, res: any) => {
   // Verificando o tipo do perfil
@@ -80,7 +78,6 @@ export const cancelarCandidatura = async (req: any, res: any) => {
     where: { id: empregoId },
   });
   if (!empregoTemp) {
-    console.log("Nenhum emprego com esse id!");
     return res.status(404).json("Nenhum emprego com esse id!");
   }
 
@@ -92,7 +89,6 @@ export const cancelarCandidatura = async (req: any, res: any) => {
   let candidatosTemp = empregoTemp.candidatos.filter(
     (email) => email !== req.usuario.usuarioEmail
   );
-  console.log(candidatosTemp);
 
   // Editando o emprego
   const emprego = await prisma.emprego.update({
@@ -108,5 +104,21 @@ export const cancelarCandidatura = async (req: any, res: any) => {
   res.status(200).json({
     mensagem: "Você se desmatriculou desta vaga com sucesso!",
     emprego,
+  });
+};
+
+// buscar empregos candidatados
+export const buscarMeusEmpregos = async (req: any, res: any) => {
+  const empregos = await prisma.emprego.findMany({
+    where: {
+      candidatos: {
+        has: req.usuario.usuarioEmail,
+      },
+    },
+  });
+
+  res.status(200).json({
+    empregos,
+    total: empregos.length,
   });
 };

@@ -6,10 +6,12 @@ import {
   candidatarEmprego,
   cancelarCandidatura,
   mostrarUmEmpregoEstudante,
+  buscarMeusEmpregos,
 } from "../controllers/empregosEstudante";
 
 router.get("/", mostrarTodosEmpregos);
 router.get("/mostrar/:id", mostrarUmEmpregoEstudante);
+router.get("/meus", buscarMeusEmpregos)
 router.patch("/candidatar/:id", candidatarEmprego);
 router.patch("/cancelar/:id", cancelarCandidatura);
 
