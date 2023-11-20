@@ -8,13 +8,12 @@
   1 Requisitos Funcionais
     Registro de usuários.
     Cadastro e edição de vagas por empresas.
-    Cadastro, edição e remoção de currículos por candidatos.
+    Cadastro, edição e remoção de candidatos.
     Aplicação em vagas com registro do tempo de aplicação.
     Opção para desistir de se aplicar em uma vaga.
-    Marcação e edição de entrevistas por parte dos empregadores.
     Visualização das vagas às quais o usuário se aplicou.
     Cadastro de empresas no sistema.
-    Criação de entrevistas.
+
 
     
   2 Requisitos Não-Funcionais
