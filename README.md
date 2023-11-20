@@ -113,3 +113,7 @@ Método: PATCH
 
 Rota: localhost:<porta>/api/v1/estudante/empregos/cancelar/<id>
 Método: PATCH
+
+**PROCURAR VAGAS CANDIDATADAS**
+Rota: localhost:<porta>/api/v1/estudante/empregos/meus
+Método: GET
